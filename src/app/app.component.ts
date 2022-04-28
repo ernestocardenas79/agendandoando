@@ -16,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
   styles: [],
 })
 export class AppComponent {
-  title = 'Administrador de asistencias a clases';
+  title = 'Bienvenido a Administrador de asistencias a clases';
 
   constructor() {}
 }
