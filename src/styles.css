@@ -61,7 +61,7 @@ router-outlet + * {
 }
 
 
-router-outlet + * section {
+router-outlet:nth-child(2) + * section {
     margin: 50px;
     background-color: paleturquoise;
     max-width: 1024px;
