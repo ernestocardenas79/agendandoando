@@ -1,0 +1,8 @@
+:host{
+    grid-area: header;
+    background-color: red;
+}
+
+h1 {
+    text-align: center;
+  }

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "assistanceRolManagment": {
+    "agendandoAndo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -94,10 +94,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "assistanceRolManagment:build:production"
+              "browserTarget": "agendandoAndo:build:production"
             },
             "development": {
-              "browserTarget": "assistanceRolManagment:build:development"
+              "browserTarget": "agendandoAndo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -105,17 +105,17 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "assistanceRolManagment:build"
+            "browserTarget": "agendandoAndo:build"
           }
         },
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "assistanceRolManagment:serve"
+            "devServerTarget": "agendandoAndo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "assistanceRolManagment:serve:production"
+              "devServerTarget": "agendandoAndo:serve:production"
             }
           }
         },
@@ -129,13 +129,13 @@
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "assistanceRolManagment:serve",
+            "devServerTarget": "agendandoAndo:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "assistanceRolManagment:serve:production"
+              "devServerTarget": "agendandoAndo:serve:production"
             }
           }
         },
@@ -151,7 +151,7 @@
       }
     }
   },
-  "defaultProject": "assistanceRolManagment",
+  "defaultProject": "agendandoAndo",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }

@@ -1,0 +1,13 @@
+/* :host{
+    display: flex;
+    background-color: palevioletred;
+    justify-content: center;
+}
+
+section{
+    margin: 50px;
+    background-color: paleturquoise;
+    max-width: 1024px;
+    width: 100%;
+
+} */
