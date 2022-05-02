@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CalendarConfigurationComponent } from './calendar-configuration/calendar-configuration.component';
-import { CalendarOrganizerComponent } from './calendar-organizer/calendar-organizer.component';
 
 const routes: Routes = [
-  { path: '', component: CalendarOrganizerComponent },
-  { path: 'config', component: CalendarConfigurationComponent },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./agenda-control/agenda-control.module').then(
+        ac => ac.AgendaControlModule
+      ),
+  },
   { path: '**', redirectTo: '/' },
 ];
 
