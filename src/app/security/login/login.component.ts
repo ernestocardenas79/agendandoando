@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  Auth,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  User,
+} from '@angular/fire/auth';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EMPTY, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'pgs-login',
@@ -24,13 +32,25 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private router: Router, private fb: FormBuilder) {}
+  private readonly userDisposable: Subscription | undefined;
+  public readonly user: Observable<User | null> = EMPTY;
+
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    public auth: Auth
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({ user: [''], password: [''] });
   }
 
-  loginHandler() {
+  async loginHandler() {
+    await signInWithEmailAndPassword(
+      this.auth,
+      'ernesto.cardenas79@gmail.com',
+      '123456'
+    );
     this.router.navigate(['/']);
   }
 

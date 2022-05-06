@@ -7,6 +7,8 @@ import { CalendarOrganizerComponent } from './calendar-organizer/calendar-organi
 import { CalendarConfigurationComponent } from './calendar-configuration/calendar-configuration.component';
 import { DayComponent } from './day/day.component';
 import { AgengaControlRoutingModule } from './agenda-control-routing.module';
+import { FirebaseAppModule } from '@angular/fire/app';
+import { FirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,12 @@ import { AgengaControlRoutingModule } from './agenda-control-routing.module';
     CalendarConfigurationComponent,
     DayComponent,
   ],
-  imports: [CommonModule, AgengaControlRoutingModule],
+  imports: [
+    CommonModule,
+    AgengaControlRoutingModule,
+    FirebaseAppModule,
+    FirestoreModule,
+  ],
   exports: [LayoutComponent],
 })
 export class AgendaControlModule {}
