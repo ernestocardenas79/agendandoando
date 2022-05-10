@@ -1,4 +1,4 @@
-/* :host{
+:host{
     display: flex;
     background-color: palevioletred;
     justify-content: center;
@@ -10,4 +10,4 @@ section{
     max-width: 1024px;
     width: 100%;
 
-} */
+}
