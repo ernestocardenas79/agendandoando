@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { getWeek, getWeekYear } from 'date-fns';
+import { getWeek } from 'date-fns';
 
 @Component({
   template: ` <section>calendar-organizer works! {{ weekId }}</section> `,
