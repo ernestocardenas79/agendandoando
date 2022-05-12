@@ -56,15 +56,14 @@ body {
 router-outlet + * {
     grid-area: main;
     display: flex;
-    background-color: palevioletred;
-    justify-content: center;
+    background-color: yellow;
+    /* justify-content: center; */
 }
 
 
-router-outlet:nth-child(2) + * section {
-    margin: 50px;
-    background-color: paleturquoise;
+pgs-layout router-outlet + * {
+    background-color: brown;
     max-width: 1024px;
     width: 100%;
-
+	margin: 0 auto;
 }

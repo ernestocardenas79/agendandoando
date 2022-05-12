@@ -1,13 +1,9 @@
-:host{
+section .days-container{
     display: flex;
-    background-color: palevioletred;
-    justify-content: center;
-}
-
-section{
-    margin: 50px;
-    background-color: paleturquoise;
-    max-width: 1024px;
+    background-color: blueviolet;
+    height: calc(30% + 15px);
+    max-height: 200px;
     width: 100%;
-
+    justify-content: space-evenly;
+    align-items: center;
 }

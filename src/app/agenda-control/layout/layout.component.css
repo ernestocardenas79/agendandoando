@@ -8,6 +8,7 @@
         "footer footer";
     grid-template-rows: 8% 1fr 5%;
     grid-template-columns: 150px 1fr;
+    gap: 5px;
 }
 
 aside {
