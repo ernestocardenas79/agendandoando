@@ -1,6 +1,6 @@
 section .days-container{
     display: flex;
-    background-color: blueviolet;
+    background-color: green;
     height: calc(30% + 15px);
     max-height: 200px;
     width: 100%;

@@ -1,0 +1,49 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import { Appoiment, AppoimentsByDay } from '../models/appoiment';
+import { WeekService } from './week.service';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AppoimentService {
+  weekAppoiments = new BehaviorSubject<AppoimentsByDay>({});
+
+  constructor(private weekService: WeekService) {}
+
+  get weekAppoiments$() {
+    return this.weekAppoiments.asObservable();
+  }
+
+  getAppoimentsByWeek(): Appoiment[] {
+    return [
+      new Appoiment(new Date(2022, 4, 20), '5:00', 'Ernesto'),
+      new Appoiment(new Date(2022, 4, 20), '6:00', 'Itzel'),
+      new Appoiment(new Date(2022, 4, 21), '5:30', 'Mari'),
+      new Appoiment(new Date(2022, 4, 22), '6:30', 'Edgar'),
+    ];
+  }
+
+  getWeekAppoinments() {
+    const appointmensByWeek = this.getAppoimentsByWeek();
+
+    const result = appointmensByWeek.reduce(
+      (appointmentsDay, appointmentvalue) => {
+        if (!appointmentsDay[appointmentvalue.dateStr]) {
+          appointmentsDay[appointmentvalue.dateStr] = [appointmentvalue];
+        } else {
+          const appointmentDayinfo = appointmentsDay[appointmentvalue.dateStr];
+          appointmentsDay[appointmentvalue.dateStr] = [
+            ...appointmentDayinfo,
+            appointmentvalue,
+          ];
+        }
+
+        return appointmentsDay;
+      },
+      <AppoimentsByDay>{}
+    );
+
+    this.weekAppoiments.next(result);
+  }
+}
