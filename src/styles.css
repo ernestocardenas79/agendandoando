@@ -57,7 +57,6 @@ router-outlet + * {
     grid-area: main;
     display: flex;
     background-color: yellow;
-    /* justify-content: center; */
 }
 
 
