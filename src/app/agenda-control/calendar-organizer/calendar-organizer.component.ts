@@ -3,7 +3,7 @@ import { getMonth, getWeek } from 'date-fns';
 import { AppoimentService } from 'src/app/core/services/appoiment.service';
 
 @Component({
-  template: ` <section>
+  template: ` <section class="container">
     <h2>Citas de {{ month }}</h2>
     <section class="days-container">
       <pgs-day

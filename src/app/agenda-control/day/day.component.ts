@@ -13,18 +13,9 @@ import { Appoiment } from 'src/app/core/models/appoiment';
     <article>
       <h2>{{ numberDay }}</h2>
       <aside>
-        <span>5:00</span>
-        <span>5:30</span>
-        <span>6:00</span>
-        <span>6:30</span>
-        <span>6:30</span>
-        <span>7:00</span>
-        <span>7:30</span>
-        <span>8:00</span>
-        <span>6:30</span>
-        <span>7:00</span>
-        <span>7:30</span>
-        <span>8:00</span>
+        <span *ngFor="let day of appoimentList">{{
+          day.appoimentDate | date: 'H:mm'
+        }}</span>
       </aside>
     </article>`,
   styleUrls: ['./day.component.css'],
@@ -33,12 +24,13 @@ import { Appoiment } from 'src/app/core/models/appoiment';
 export class DayComponent {
   appoimentDate!: Date;
   numberDay!: number;
+  appoimentList!: Appoiment[];
 
   @Input()
   set appoiments(appoimentsByDate: KeyValue<string, Appoiment[]>) {
-    const date = new Date(appoimentsByDate.value[0].appoimentDate);
     this.appoimentDate = appoimentsByDate.value[0].appoimentDate;
-    this.numberDay = date.getDate();
+    this.numberDay = appoimentsByDate.value[0].appoimentDate.getDate();
+    this.appoimentList = appoimentsByDate.value;
   }
 
   constructor() {}

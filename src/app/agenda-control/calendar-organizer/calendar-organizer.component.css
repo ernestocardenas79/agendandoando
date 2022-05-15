@@ -1,9 +1,13 @@
+.container{
+    display: block;
+    width: 100%;
+}
+
 section .days-container{
-    display: flex;
-    background-color: green;
     height: calc(30% + 15px);
     max-height: 200px;
-    width: 100%;
+    display: flex;
+    background-color: green;
     justify-content: space-evenly;
     align-items: center;
 }

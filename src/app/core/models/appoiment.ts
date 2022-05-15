@@ -1,9 +1,5 @@
 export class Appoiment {
-  constructor(
-    public appoimentDate: Date,
-    public shcheduleTime: string,
-    public clientName: string
-  ) {}
+  constructor(public appoimentDate: Date, public clientName: string) {}
 
   get dateStr() {
     return this.appoimentDate
