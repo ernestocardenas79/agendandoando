@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, User } from '@angular/fire/auth';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EMPTY, Observable, Subscription } from 'rxjs';
 
@@ -24,14 +24,14 @@ import { EMPTY, Observable, Subscription } from 'rxjs';
   `,
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+  loginForm!: UntypedFormGroup;
 
   private readonly userDisposable: Subscription | undefined;
   public readonly user: Observable<User | null> = EMPTY;
 
   constructor(
     private router: Router,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: Auth
   ) {}
 
