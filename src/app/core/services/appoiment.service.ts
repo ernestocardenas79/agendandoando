@@ -25,6 +25,7 @@ export class AppoimentService {
   }
 
   getWeekAppoinments() {
+    const weekBaseDate = this.weekService.baseData();
     const appointmensByWeek = this.getAppoimentsByWeek();
 
     const result = appointmensByWeek.reduce(

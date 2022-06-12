@@ -1,10 +1,5 @@
 import { KeyValue } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Appoiment } from 'src/app/core/models/appoiment';
 
 @Component({
