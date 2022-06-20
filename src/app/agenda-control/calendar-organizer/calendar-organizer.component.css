@@ -1,13 +1,22 @@
 .container{
     display: block;
     width: 100%;
+    background-color: beige;
 }
 
-section .days-container{
-    height: calc(30% + 15px);
-    max-height: 200px;
+section.days-container{
+    height: 25%;
+    /* max-height: 200px; */
     display: flex;
-    background-color: green;
+    background-color: yellowgreen;
     justify-content: space-evenly;
     align-items: center;
+}
+
+section:nth-child(2){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75%;
+    background-color: blue;
 }
