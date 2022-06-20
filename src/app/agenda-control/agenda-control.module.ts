@@ -10,6 +10,7 @@ import { AgengaControlRoutingModule } from './agenda-control-routing.module';
 import { FirebaseAppModule } from '@angular/fire/app';
 import { FirestoreModule } from '@angular/fire/firestore';
 import { HourComponent } from './hour/hour.component';
+import { DayDetailComponent } from './day-detail/day-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HourComponent } from './hour/hour.component';
     CalendarConfigurationComponent,
     DayComponent,
     HourComponent,
+    DayDetailComponent,
   ],
   imports: [
     CommonModule,
