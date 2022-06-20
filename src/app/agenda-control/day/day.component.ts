@@ -1,16 +1,18 @@
 import { KeyValue } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Appoiment } from 'src/app/core/models/appoiment';
+import { Appoiment, AvailableAppoiment } from 'src/app/core/models/appoiment';
 
 @Component({
   selector: 'pgs-day',
-  template: ` <section>Lunes</section>
+  template: ` <section>{{ appoimentDate | date: 'EEEE' }}</section>
     <article>
       <h2>{{ numberDay }}</h2>
       <aside>
-        <span *ngFor="let day of appoimentList">{{
-          day.appoimentDate | date: 'H:mm'
-        }}</span>
+        <span
+          *ngFor="let day of appoimentList"
+          [ngClass]="{ ocuped: day.state === 'ocuped' }"
+          >{{ day.date | date: 'H:mm' }}</span
+        >
       </aside>
     </article>`,
   styleUrls: ['./day.component.css'],
@@ -19,16 +21,14 @@ import { Appoiment } from 'src/app/core/models/appoiment';
 export class DayComponent {
   appoimentDate!: Date;
   numberDay!: number;
-  appoimentList!: Appoiment[];
+  appoimentList!: AvailableAppoiment[];
 
   @Input()
-  set appoiments(appoimentsByDate: KeyValue<string, Appoiment[]>) {
-    this.appoimentDate = appoimentsByDate.value[0].appoimentDate;
-    this.numberDay = appoimentsByDate.value[0].appoimentDate.getDate();
+  set appoiments(appoimentsByDate: KeyValue<string, AvailableAppoiment[]>) {
+    this.appoimentDate = appoimentsByDate.value[0].date;
+    this.numberDay = appoimentsByDate.value[0].date.getDate();
     this.appoimentList = appoimentsByDate.value;
   }
-
-  constructor() {}
 
   get dayNumber() {
     return this.appoimentDate.getDate();
