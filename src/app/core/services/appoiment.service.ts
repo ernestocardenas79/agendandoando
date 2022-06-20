@@ -19,10 +19,10 @@ export class AppoimentService {
 
   getAppoimentsByWeek(): Appoiment[] {
     return [
-      new Appoiment(new Date(2022, 4, 20, 17, 0), 'Ernesto'),
-      new Appoiment(new Date(2022, 4, 20, 18, 0), 'Itzel'),
-      new Appoiment(new Date(2022, 4, 21, 17, 30), 'Mari'),
-      new Appoiment(new Date(2022, 4, 22, 18, 30), 'Edgar'),
+      new Appoiment('Ernesto', new Date(2022, 4, 20, 17, 0), 'ocuped'),
+      new Appoiment('Itzel', new Date(2022, 4, 20, 18, 0), 'ocuped'),
+      new Appoiment('Maria', new Date(2022, 4, 18, 17, 0), 'ocuped'),
+      new Appoiment('Edgar', new Date(2022, 4, 19, 18, 0), 'ocuped'),
     ];
   }
 

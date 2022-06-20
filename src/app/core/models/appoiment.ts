@@ -1,19 +1,29 @@
-export class Appoiment {
-  constructor(public appoimentDate: Date, public clientName: string) {}
+import format from 'date-fns/format';
 
-  get dateStr() {
-    return this.appoimentDate
-      .toLocaleString('default', {
-        year: 'numeric',
-        month: '2-digit',
-        day: 'numeric',
-      })
-      .replaceAll('/', '');
+export abstract class AppoimentBase {
+  constructor(public date: Date, public state: AppoimentState = 'available') {}
+
+  get dateKeyStr() {
+    return format(this.date, 'yyyyMMdd');
   }
 }
 
+export class AvailableAppoiment extends AppoimentBase {}
+
+export class Appoiment extends AppoimentBase {
+  constructor(
+    public cliente: string,
+    date: Date,
+    state: AppoimentState = 'available'
+  ) {
+    super(date, state);
+  }
+}
+
+export type AppoimentState = 'available' | 'ocuped';
+
 export interface AppoimentsByDay {
-  [key: string]: Appoiment[];
+  [key: string]: AvailableAppoiment[] | Appoiment[];
 }
 
 export interface ScheduleConfig {
@@ -21,13 +31,18 @@ export interface ScheduleConfig {
   startedShift: number;
   endShift: number;
   unavailableHours: number[];
-  availableDays: WeekDaysConfig;
+  availableDays: AvailableWeekDays[];
 }
 
-export interface WeekDaysConfig {
+//Identificar los dias que se proporcionara el servicio
+export interface AvailableWeekDays {
   [key: number]: boolean;
 }
 
 /// Utils
 export const dateToWeekId = (date: Date) => new Date().getDate();
 //export const dateToWeekId = () => {};
+
+export interface WeeksInfo {
+  [key: number]: AppoimentBase[];
+}
