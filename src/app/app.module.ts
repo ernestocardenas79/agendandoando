@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AgendaControlModule } from './agenda-control/agenda-control.module';
 
@@ -28,6 +28,10 @@ const firebaseConfig = {
 };
 
 let resolvePersistenceEnabled: (enabled: boolean) => void;
+
+export const BASE_DATE = new InjectionToken<Date>(
+  'Base Date for the week service'
+);
 
 export const persistenceEnabled = new Promise<boolean>(resolve => {
   resolvePersistenceEnabled = resolve;
@@ -71,6 +75,12 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     //   provide: USE_FIRESTORE_EMULATOR,
     //   useValue: environment.useEmulators ? ['localhost', 8080] : undefined,
     // },
+    {
+      provide: BASE_DATE,
+      useFactory: () => {
+        return environment.production ? new Date() : new Date(2022, 4, 18);
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })
