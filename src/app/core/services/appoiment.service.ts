@@ -1,6 +1,11 @@
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
-import { Appoiment, AppoimentsByDay } from '../models/appoiment';
 import { forwardRef, Inject, Injectable } from '@angular/core';
+import isEqual from 'date-fns/isEqual';
+import { BehaviorSubject } from 'rxjs';
+import {
+  Appoiment,
+  AppoimentsByDay,
+  AvailableAppoiment,
+} from '../models/appoiment';
 import { WeekService } from './week.service';
 
 @Injectable({
@@ -17,6 +22,7 @@ export class AppoimentService {
     return this.weekAppoiments.asObservable();
   }
 
+  // Consulta las citas registradas en la BD
   getAppoimentsByWeek(): Appoiment[] {
     return [
       new Appoiment('Ernesto', new Date(2022, 4, 20, 17, 0), 'ocuped'),
@@ -26,27 +32,37 @@ export class AppoimentService {
     ];
   }
 
-  getWeekAppoinments() {
-    const weekBaseDate = this.weekService.baseData();
+  getWeekAppoinments(date: Date) {
+    const weekBaseDate = this.weekService.weekConfig(date);
     const appointmensByWeek = this.getAppoimentsByWeek();
 
-    const result = appointmensByWeek.reduce(
-      (appointmentsDay, appointmentvalue) => {
-        if (!appointmentsDay[appointmentvalue.dateStr]) {
-          appointmentsDay[appointmentvalue.dateStr] = [appointmentvalue];
-        } else {
-          const appointmentDayinfo = appointmentsDay[appointmentvalue.dateStr];
-          appointmentsDay[appointmentvalue.dateStr] = [
-            ...appointmentDayinfo,
-            appointmentvalue,
-          ];
-        }
+    const result = weekBaseDate.reduce((appointmentsDay, appointmentvalue) => {
+      if (!appointmentsDay[appointmentvalue.dateKeyStr]) {
+        appointmentsDay[appointmentvalue.dateKeyStr] = [
+          this.verifyAppoiment(appointmensByWeek, appointmentvalue),
+        ];
+      } else {
+        const appointmentDayinfo = appointmentsDay[appointmentvalue.dateKeyStr];
+        appointmentsDay[appointmentvalue.dateKeyStr] = [
+          ...appointmentDayinfo,
+          this.verifyAppoiment(appointmensByWeek, appointmentvalue),
+        ];
+      }
 
-        return appointmentsDay;
-      },
-      <AppoimentsByDay>{}
-    );
+      return appointmentsDay;
+    }, <AppoimentsByDay>{});
 
     this.weekAppoiments.next(result);
+  }
+
+  private verifyAppoiment(
+    appoiments: Appoiment[],
+    appoiment: AvailableAppoiment
+  ) {
+    const [identifiedAppoiment] = appoiments.filter(a =>
+      isEqual(a.date, appoiment.date)
+    );
+
+    return identifiedAppoiment ? identifiedAppoiment : appoiment;
   }
 }
