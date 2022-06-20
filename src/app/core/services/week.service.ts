@@ -1,65 +1,130 @@
-import { Injectable } from '@angular/core';
-import { getWeek, startOfWeek, addDays } from 'date-fns';
-import { ScheduleConfig, WeekDaysConfig } from '../models/appoiment';
+import { Inject, Injectable } from '@angular/core';
+import {
+  getWeek,
+  startOfWeek,
+  addDays,
+  addMinutes,
+  addHours,
+  format,
+} from 'date-fns';
+import { BASE_DATE } from 'src/app/app.module';
 
-@Injectable({
-  providedIn: 'root',
-})
+import {
+  ScheduleConfig,
+  AvailableWeekDays,
+  WeeksInfo,
+  AvailableAppoiment,
+} from '../models/appoiment';
+
+function* appoimentsGen(date: Date, scheduleConfig: ScheduleConfig) {
+  const endDate = addHours(
+    date,
+    scheduleConfig.endShift - scheduleConfig.startedShift
+  );
+
+  let nextAppoiment: AvailableAppoiment = new AvailableAppoiment(
+    addMinutes(date, scheduleConfig.timeInterval)
+  );
+  do {
+    nextAppoiment = new AvailableAppoiment(
+      addMinutes(nextAppoiment.date, scheduleConfig.timeInterval)
+    );
+
+    yield nextAppoiment;
+  } while (nextAppoiment.date < endDate);
+}
+
+@Injectable()
 export class WeekService {
   private baseHours!: number[];
-  private baseDays!: Date[];
+  private WeeksInfo: WeeksInfo;
 
-  private scheduleConfig: ScheduleConfig = {
-    availableDays: { 0: false },
-    timeInterval: 30,
-    startedShift: 9,
-    endShift: 20,
-    unavailableHours: [],
-  };
+  private scheduleConfig!: ScheduleConfig;
 
-  getConfiguration(): ScheduleConfig {
-    return {
-      availableDays: { 0: false },
-      timeInterval: 30,
+  constructor(@Inject(BASE_DATE) public baseDateConfig: Date) {
+    this.getConfiguration();
+    this.WeeksInfo = {};
+  }
+
+  //Obtiene Configuracio de FB para el cliente
+  private getConfiguration(): void {
+    this.scheduleConfig = {
+      availableDays: [
+        { 0: false },
+        { 1: true },
+        { 2: true },
+        { 3: true },
+        { 4: true },
+        { 5: true },
+        { 6: false },
+      ],
+      timeInterval: 60,
       startedShift: 9,
       endShift: 20,
       unavailableHours: [],
     };
+
+    this.baseHours = this.availableHours(this.scheduleConfig);
   }
 
-  private get baseDate() {
-    return new Date();
+  get baseDate() {
+    const date = this.baseDateConfig;
+    return startOfWeek(new Date(date).setHours(0, 0, 0));
   }
 
-  baseData() {
-    this.baseDays = this.validDays(startOfWeek(this.baseDate));
-    this.baseHours = this.availableHours();
+  weekConfig(date: Date) {
+    if (!this.WeeksInfo[this.weekNumber(date)]) {
+      this.buildWeek(this.baseDate);
+    }
+    return [...this.WeeksInfo[this.weekNumber(date)]];
   }
 
-  private get identifyWeekNumber() {
-    return 'Sem' + getWeek(this.baseDate);
+  private buildWeek(date: Date) {
+    this.WeeksInfo = {
+      [this.weekNumber(date)]: [
+        ...this.validDaysGen(date, this.scheduleConfig),
+      ],
+    };
   }
 
-  private validDays(startDate: Date) {
-    const weekDaysConf: WeekDaysConfig[] = [
-      { 0: false },
-      { 1: true },
-      { 2: true },
-      { 3: true },
-      { 4: true },
-      { 5: true },
-      { 6: false },
-    ];
+  weekNumber(date: Date) {
+    return getWeek(date);
+  }
+
+  get weekRangeDays() {
+    return `de ${format(
+      this.WeeksInfo[this.weekNumber(this.baseDate)][0].date,
+      'dd'
+    )} al ${format(
+      this.WeeksInfo[this.weekNumber(this.baseDate)][
+        this.WeeksInfo[this.weekNumber(this.baseDate)].length - 1
+      ].date,
+      'dd'
+    )}`;
+  }
+
+  private validDaysGen(startDate: Date, scheduleConfig: ScheduleConfig) {
+    const weekDaysConf: AvailableWeekDays[] = [...scheduleConfig.availableDays];
 
     return weekDaysConf
       .filter((wdc, i) => wdc[i])
-      .map(wd => addDays(startDate, +Object.keys(wd)[0]));
+      .map(function* (wd) {
+        yield* appoimentsGen(
+          addHours(
+            addDays(startDate, +Object.keys(wd)[0]),
+            scheduleConfig.startedShift
+          ),
+          scheduleConfig
+        );
+      })
+      .map(res => [...res])
+      .flat();
   }
 
-  private availableHours() {
-    this.scheduleConfig.startedShift;
-    this.scheduleConfig.endShift;
-    this.scheduleConfig.timeInterval = 20;
+  private availableHours(scheduleConfig: ScheduleConfig) {
+    scheduleConfig.startedShift;
+    scheduleConfig.endShift;
+    scheduleConfig.timeInterval;
 
     return [
       ...this.Range(

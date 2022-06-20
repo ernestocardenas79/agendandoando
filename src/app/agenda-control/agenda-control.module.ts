@@ -11,6 +11,7 @@ import { FirebaseAppModule } from '@angular/fire/app';
 import { FirestoreModule } from '@angular/fire/firestore';
 import { HourComponent } from './hour/hour.component';
 import { DayDetailComponent } from './day-detail/day-detail.component';
+import { WeekService } from '../core/services/week.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DayDetailComponent } from './day-detail/day-detail.component';
     FirebaseAppModule,
     FirestoreModule,
   ],
+  providers: [WeekService],
   exports: [LayoutComponent],
 })
 export class AgendaControlModule {}

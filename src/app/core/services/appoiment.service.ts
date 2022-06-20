@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { Appoiment, AppoimentsByDay } from '../models/appoiment';
+import { forwardRef, Inject, Injectable } from '@angular/core';
 import { WeekService } from './week.service';
 
 @Injectable({
@@ -9,7 +9,9 @@ import { WeekService } from './week.service';
 export class AppoimentService {
   weekAppoiments = new BehaviorSubject<AppoimentsByDay>({});
 
-  constructor(private weekService: WeekService) {}
+  constructor(
+    @Inject(forwardRef(() => WeekService)) private weekService: WeekService
+  ) {}
 
   get weekAppoiments$() {
     return this.weekAppoiments.asObservable();
