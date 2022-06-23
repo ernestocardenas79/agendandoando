@@ -10,7 +10,6 @@ export class Appoiment extends AppoimentBase {
   }
 }
 
-export type AppoimentState = 'available' | 'ocuped';
 
 
 export interface ScheduleConfig {
