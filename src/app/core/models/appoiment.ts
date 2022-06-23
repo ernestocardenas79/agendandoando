@@ -1,13 +1,3 @@
-import format from 'date-fns/format';
-
-export abstract class AppoimentBase {
-  constructor(public date: Date, public state: AppoimentState = 'available') {}
-
-  get dateKeyStr() {
-    return format(this.date, 'yyyyMMdd');
-  }
-}
-
 export class AvailableAppoiment extends AppoimentBase {}
 
 export class Appoiment extends AppoimentBase {
