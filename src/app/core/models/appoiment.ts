@@ -12,9 +12,6 @@ export class Appoiment extends AppoimentBase {
 
 export type AppoimentState = 'available' | 'ocuped';
 
-export interface AppoimentsByDay {
-  [key: string]: AvailableAppoiment[] | Appoiment[];
-}
 
 export interface ScheduleConfig {
   timeInterval: number;
