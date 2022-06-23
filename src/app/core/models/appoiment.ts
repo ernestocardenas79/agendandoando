@@ -1,3 +1,5 @@
+import { AppoimentBase } from './appoimentBase';
+import { AppoimentState } from './AppoimentState';
 
 export class Appoiment extends AppoimentBase {
   constructor(
@@ -12,7 +14,3 @@ export class Appoiment extends AppoimentBase {
 /// Utils
 export const dateToWeekId = (date: Date) => new Date().getDate();
 //export const dateToWeekId = () => {};
-
-export interface WeeksInfo {
-  [key: number]: AppoimentBase[];
-}
