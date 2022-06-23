@@ -9,11 +9,6 @@ export class Appoiment extends AppoimentBase {
   }
 }
 
-//Identificar los dias que se proporcionara el servicio
-export interface AvailableWeekDays {
-  [key: number]: boolean;
-}
-
 /// Utils
 export const dateToWeekId = (date: Date) => new Date().getDate();
 //export const dateToWeekId = () => {};
