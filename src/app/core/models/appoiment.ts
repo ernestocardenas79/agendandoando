@@ -9,16 +9,6 @@ export class Appoiment extends AppoimentBase {
   }
 }
 
-
-
-export interface ScheduleConfig {
-  timeInterval: number;
-  startedShift: number;
-  endShift: number;
-  unavailableHours: number[];
-  availableDays: AvailableWeekDays[];
-}
-
 //Identificar los dias que se proporcionara el servicio
 export interface AvailableWeekDays {
   [key: number]: boolean;
