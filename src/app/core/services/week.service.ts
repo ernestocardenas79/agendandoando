@@ -8,13 +8,10 @@ import {
   format,
 } from 'date-fns';
 import { BASE_DATE } from 'src/app/app.module';
-
-import {
-  ScheduleConfig,
-  AvailableWeekDays,
-  WeeksInfo,
-  AvailableAppoiment,
-} from '../models/appoiment';
+import { AvailableAppoiment } from '../models/availableAppoiment';
+import { AvailableWeekDays } from '../models/availableWeekDays';
+import { ScheduleConfig } from '../models/scheduleConfig';
+import { WeeksInfo } from '../models/weeksInfo';
 
 function* appoimentsGen(date: Date, scheduleConfig: ScheduleConfig) {
   const endDate = addHours(

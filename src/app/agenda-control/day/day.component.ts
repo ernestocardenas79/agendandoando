@@ -1,6 +1,6 @@
 import { KeyValue } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Appoiment, AvailableAppoiment } from 'src/app/core/models/appoiment';
+import { AvailableAppoiment } from 'src/app/core/models/availableAppoiment';
 
 @Component({
   selector: 'pgs-day',

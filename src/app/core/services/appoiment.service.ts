@@ -1,11 +1,9 @@
 import { forwardRef, Inject, Injectable } from '@angular/core';
 import isEqual from 'date-fns/isEqual';
 import { BehaviorSubject } from 'rxjs';
-import {
-  Appoiment,
-  AppoimentsByDay,
-  AvailableAppoiment,
-} from '../models/appoiment';
+import { Appoiment } from '../models/appoiment';
+import { AppoimentsByDay } from '../models/appoimentByDay';
+import { AvailableAppoiment } from '../models/availableAppoiment';
 import { WeekService } from './week.service';
 
 @Injectable({

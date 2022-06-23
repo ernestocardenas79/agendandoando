@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppoimentsByDay } from 'src/app/core/models/appoiment';
+import { AppoimentsByDay } from 'src/app/core/models/appoimentByDay';
 import { AppoimentService } from 'src/app/core/services/appoiment.service';
 import { WeekService } from 'src/app/core/services/week.service';
 
