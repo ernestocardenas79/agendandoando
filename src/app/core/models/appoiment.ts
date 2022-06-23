@@ -1,4 +1,3 @@
-export class AvailableAppoiment extends AppoimentBase {}
 
 export class Appoiment extends AppoimentBase {
   constructor(
