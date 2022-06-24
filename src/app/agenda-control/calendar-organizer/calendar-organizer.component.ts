@@ -11,9 +11,13 @@ import { WeekService } from 'src/app/core/services/week.service';
         *ngFor="let day of weekAppoiments$ | async | keyvalue"
         [appoiments]="day"></pgs-day>
     </section>
-    <section>
-      <pgs-day-detail></pgs-day-detail>
-    </section>
+    <pgs-day-detail>
+      <pgs-schedule-day></pgs-schedule-day>
+      <pgs-schedule-day></pgs-schedule-day>
+      <pgs-schedule-day></pgs-schedule-day>
+      <pgs-schedule-day></pgs-schedule-day>
+      <pgs-schedule-day></pgs-schedule-day>
+    </pgs-day-detail>
   </section>`,
   styleUrls: ['./calendar-organizer.component.css'],
 })

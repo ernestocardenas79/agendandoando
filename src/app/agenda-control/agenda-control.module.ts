@@ -12,6 +12,7 @@ import { FirestoreModule } from '@angular/fire/firestore';
 import { HourComponent } from './hour/hour.component';
 import { DayDetailComponent } from './day-detail/day-detail.component';
 import { WeekService } from '../core/services/week.service';
+import { ScheduleDayComponent } from './schedule-day/schedule-day.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { WeekService } from '../core/services/week.service';
     DayComponent,
     HourComponent,
     DayDetailComponent,
+    ScheduleDayComponent,
   ],
   imports: [
     CommonModule,
