@@ -1,35 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import {
-  getWeek,
-  startOfWeek,
-  addDays,
-  addMinutes,
-  addHours,
-  format,
-} from 'date-fns';
+import { getWeek, startOfWeek, addDays, addHours, format } from 'date-fns';
 import { BASE_DATE } from 'src/app/app.module';
-import { AvailableAppoiment } from '../models/availableAppoiment';
 import { AvailableWeekDays } from '../models/availableWeekDays';
 import { ScheduleConfig } from '../models/scheduleConfig';
 import { WeeksInfo } from '../models/weeksInfo';
-
-function* appoimentsGen(date: Date, scheduleConfig: ScheduleConfig) {
-  const endDate = addHours(
-    date,
-    scheduleConfig.endShift - scheduleConfig.startedShift
-  );
-
-  let nextAppoiment: AvailableAppoiment = new AvailableAppoiment(
-    addMinutes(date, scheduleConfig.timeInterval)
-  );
-  do {
-    nextAppoiment = new AvailableAppoiment(
-      addMinutes(nextAppoiment.date, scheduleConfig.timeInterval)
-    );
-
-    yield nextAppoiment;
-  } while (nextAppoiment.date < endDate);
-}
+import { Range, appoimentsGen } from 'src/app/utils';
 
 @Injectable()
 export class WeekService {
@@ -124,7 +99,7 @@ export class WeekService {
     scheduleConfig.timeInterval;
 
     return [
-      ...this.Range(
+      ...Range(
         (this.scheduleConfig.endShift - this.scheduleConfig.startedShift) /
           (this.scheduleConfig.timeInterval / 60),
         this.scheduleConfig.timeInterval / 60,
@@ -132,8 +107,4 @@ export class WeekService {
       ),
     ];
   }
-
-  private Range = function* (total = 0, step = 1, from = 0) {
-    for (let i = 0; i < total; yield from + i++ * step) {}
-  };
 }
