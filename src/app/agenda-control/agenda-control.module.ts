@@ -13,6 +13,7 @@ import { HourComponent } from './hour/hour.component';
 import { DayDetailComponent } from './day-detail/day-detail.component';
 import { WeekService } from '../core/services/week.service';
 import { ScheduleDayComponent } from './schedule-day/schedule-day.component';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ScheduleDayComponent } from './schedule-day/schedule-day.component';
     AgengaControlRoutingModule,
     FirebaseAppModule,
     FirestoreModule,
+    ReactiveFormsModule,
   ],
   providers: [WeekService],
   exports: [LayoutComponent],

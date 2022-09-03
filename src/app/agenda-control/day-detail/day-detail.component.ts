@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AppoimentsByDay } from 'src/app/core/models/appoimentByDay';
+import { AppoimentService } from 'src/app/core/services/appoiment.service';
 
 @Component({
   selector: 'pgs-day-detail',
-  template: `<ng-content></ng-content> `,
+  template: ` <!-- *ngFor="let date of detail$ | async" -->
+    <pgs-schedule-day></pgs-schedule-day>`,
   styles: [
     `
       :host {
@@ -14,5 +18,10 @@ import { Component, OnInit } from '@angular/core';
   ],
 })
 export class DayDetailComponent {
-  constructor() {}
+  @Input()
+  detail$!: Observable<AppoimentsByDay>;
+
+  constructor(private appoimentService: AppoimentService) {
+    this.detail$.subscribe(r => console.log(r));
+  }
 }

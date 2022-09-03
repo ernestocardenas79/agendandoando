@@ -5,6 +5,8 @@ import { AvailableWeekDays } from '../models/availableWeekDays';
 import { ScheduleConfig } from '../models/scheduleConfig';
 import { WeeksInfo } from '../models/weeksInfo';
 import { Range, appoimentsGen } from 'src/app/utils';
+import { map, Observable, Subject, switchMap } from 'rxjs';
+import { Appoiment } from '../models/appoiment';
 
 @Injectable()
 export class WeekService {
@@ -12,6 +14,14 @@ export class WeekService {
   private WeeksInfo: WeeksInfo;
 
   private scheduleConfig!: ScheduleConfig;
+
+  weekSelectedWeek = new Subject<number>();
+  weekSelectedDay = new Subject<string>();
+
+  weekAppoimentsBySelectedDay$ = this.weekSelectedDay.asObservable().pipe(
+    switchMap(r => this.weekSelectedWeek),
+    map(w => this.WeeksInfo[0])
+  );
 
   constructor(@Inject(BASE_DATE) public baseDateConfig: Date) {
     this.getConfiguration();
@@ -49,6 +59,17 @@ export class WeekService {
       this.buildWeek(this.baseDate);
     }
     return [...this.WeeksInfo[this.weekNumber(date)]];
+  }
+
+  get firtsAvailableDay() {
+    try {
+      return format(
+        this.WeeksInfo[this.weekNumber(this.baseDate)][0]?.date,
+        'yyyyMMdd'
+      );
+    } catch (error) {
+      return;
+    }
   }
 
   private buildWeek(date: Date) {
